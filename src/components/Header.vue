@@ -1,0 +1,52 @@
+<template lang="html">
+  <header class="header">
+    <h2>Gkhabada</h2>
+    <div class="header_links">
+      <template v-if="!auth">
+        <router-link :to="{ name: 'signin' }">Вход</router-link>
+      </template>
+      <template v-else>
+        <a href="#" @click.stop="signout()"></a>
+        <router-link :to="{ name: 'edit' }">Редактирование статей</router-link>
+      </template>
+    </div>
+  </header>
+</template>
+
+<script>
+import router from '../router/index'
+
+export default {
+  name: 'Header',
+  data () {
+    return {
+      auth: false
+    }
+  },
+
+  methods: {
+    signout() {
+      this.auth = false;
+      localStorage.setItem('auth', 'false');
+      router.push({ name: 'home' })
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+
+  .header {
+    padding: 0 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 50px;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+</style>
