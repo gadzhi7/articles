@@ -6,8 +6,9 @@
         <router-link :to="{ name: 'signin' }">Вход</router-link>
       </template>
       <template v-else>
-        <a href="#" @click.stop="signout()"></a>
+        <router-link :to="{ name: 'home' }">Главная</router-link>
         <router-link :to="{ name: 'edit' }">Редактирование статей</router-link>
+        <a href="#" @click.stop="signout()">Выход</a>
       </template>
     </div>
   </header>
@@ -23,7 +24,9 @@ export default {
       auth: false
     }
   },
-
+  beforeMount () {
+    this.auth = JSON.parse(localStorage.getItem('auth'));
+  },
   methods: {
     signout() {
       this.auth = false;
@@ -47,6 +50,18 @@ export default {
   h2 {
     font-size: 18px;
     font-weight: bold;
+  }
+
+  .header {
+    background-color: #111;
+    color: #eee;
+    font-family: sans-serif;
+
+    a {
+      color: #eee;
+      text-decoration: none;
+      margin-left: 15px;
+    }
   }
 
 </style>

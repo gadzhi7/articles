@@ -28,7 +28,7 @@ export default {
   components: {Header},
   data () {
     return {
-
+      auth: false
     }
   },
   methods: {

@@ -38,35 +38,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 .articles {
   margin: 50px 0;
-}
-
-.articles_item-wrapper {
-  border-bottom: 1px solid #777777;
-
-  .articles_item {
-    max-width: 970px;
-    padding: 20px;
-    margin: 0 auto;
-
-    h3 {
-      font-weight: bold;
-      font-size: 26px;
-    }
-
-    p {
-      margin: 20px 0;
-      font-size: 18px;
-    }
-
-    h6 {
-      color: #777777;
-      text-align: right;
-    }
-  }
 }
 
 </style>
