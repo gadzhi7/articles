@@ -1,9 +1,11 @@
 <template lang="html">
   <section class="edit_wrapper">
     <Header :links="headerLinks"/>
-    <div class="actions actions_adding">
-      <p>Добавить новую статью</p>
-      <button class="success" type="button" @click="addingEditing()">Добавить</button>
+    <div class="actions_adding">
+      <div class="actions">
+        <p>Добавить новую статью</p>
+        <button class="success" type="button" @click="addingEditing()">Добавить</button>
+      </div>
     </div>
     <div class="articles_item-wrapper" v-for="(article, index) in sortedArticles" :key="index">
       <div class="articles_item">
@@ -18,12 +20,13 @@
     </div>
     <div class="edit_page">
       <div class="popup" v-if="deleteArticle">
-        <DeletePopup @close="close()"/>
+        <DeletePopup :article="article" @close="close()"/>
       </div>
       <div class="popup" v-if="addEditArticle">
-        <EditPopup @saveEdit="save" :article="article" @close="close()"/>
+        <EditPopup :article="article" @close="close()"/>
       </div>
     </div>
+    {{article}}
   </section>
 </template>
 
@@ -73,14 +76,8 @@ export default {
       this.addEditArticle = true;
     },
     deleteing (i) {
-      console.log(i);
-      console.log(this.articles[i]);
-    },
-    save (i) {
-      console.log(i);
-    },
-    overlay () {
-      console.log(11111);
+      this.article = this.articles[i];
+      this.deleteArticle = true;
     }
   },
   computed: {
@@ -109,12 +106,20 @@ export default {
 }
 
 .actions_adding {
-  padding: 20px;
+  border-bottom: 1px solid #777777;
 
-  p {
-    font-size: 18px;
-    font-weight: bold;
+  .actions {
+    padding: 20px;
+    margin: 0 auto;
+    width: 970px;
+
+    p {
+      font-size: 20px;
+      font-weight: bold;
+    }
   }
 }
+
+
 
 </style>

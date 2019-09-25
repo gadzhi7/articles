@@ -74,9 +74,10 @@ export default {
   padding: 10px 15px;
   width: 400px;
   min-height: 250px;
-  background-color: #fff;
-  box-shadow: 0 1px 15px 5px rgba(red, .2);
   border-radius: 7px;
+  background: #c2e59c; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #c2e59c, #64b3f4); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #c2e59c, #64b3f4);
 
   .edit_article__field {
 
