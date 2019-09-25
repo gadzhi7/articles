@@ -1,15 +1,17 @@
 <template lang="html">
   <header class="header">
-    <h2>Gkhabada</h2>
-    <div class="header_links">
-      <template v-if="!auth">
-        <router-link :to="{ name: 'signin' }">Вход</router-link>
-      </template>
-      <template v-else>
-        <router-link :to="{ name: 'home' }">Главная</router-link>
-        <router-link :to="{ name: 'edit' }">Редактирование статей</router-link>
-        <a href="#" @click.stop="signout()">Выход</a>
-      </template>
+    <div class="header_inner">
+      <h2>Gkhabada</h2>
+      <div class="header_links">
+        <router-link
+          :to="{ name: link.route }"
+          v-for="(link, index) in links"
+          :key="index"
+        >
+          {{link.title}}
+        </router-link>
+        <a href="#" @click.stop="signOut()" v-if="auth">Выход</a>
+      </div>
     </div>
   </header>
 </template>
@@ -17,50 +19,67 @@
 <script>
 
 export default {
+  props: ['links'],
   name: 'Header',
   data () {
     return {
       auth: false
-    }
+    };
   },
   beforeMount () {
     this.auth = JSON.parse(localStorage.getItem('auth'));
   },
   methods: {
-    signout() {
+    signOut () {
       this.auth = false;
       localStorage.setItem('auth', 'false');
-      this.$router.push({ name: 'home' })
+      if (!!this.$parent.$options.methods.headerLinks) {
+        this.$emit('update');
+      } else {
+        this.$router.push({ name: 'home' });
+      }
+
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 
-  .header {
-    padding: 0 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 50px;
-  }
+.header {
+  background-color: #111;
+  color: #eee;
+  font-family: sans-serif;
+  padding: 0 50px;
 
   h2 {
     font-size: 18px;
     font-weight: bold;
   }
 
-  .header {
-    background-color: #111;
-    color: #eee;
-    font-family: sans-serif;
+  .header_inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 970px;
+    min-height: 50px;
+    margin: 0 auto;
+  }
 
-    a {
-      color: #eee;
-      text-decoration: none;
-      margin-left: 15px;
+  a {
+    color: #bbb;
+    text-decoration: none;
+    margin-left: 15px;
+    transition: 0.3s;
+    padding: 3px 7px;
+    border-radius: 2px;
+
+    &:hover {
+      transition: 0.3s;
+      color: #000;
+      background-color: #fff;
     }
   }
+}
 
 </style>

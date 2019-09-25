@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="">
-    <Header />
+    <Header :links="links" @update="headerLinks"/>
     <div class="articles">
       <div class="articles_item-wrapper" v-for="(article, index) in sortedArticles" :key="index">
         <div class="articles_item">
@@ -14,18 +14,35 @@
 </template>
 
 <script>
-import Header from '../components/Header.vue'
+import Header from '../components/Header.vue';
 
 export default {
   name: 'Home',
-  components: {Header},
+  components: { Header },
   data () {
     return {
+      links: [],
       articles: []
     };
   },
   beforeMount () {
     this.articles = JSON.parse(localStorage.getItem('articles'));
+    this.headerLinks();
+  },
+  methods: {
+    headerLinks () {
+      if (JSON.parse(localStorage.getItem('auth'))) {
+        this.links = [{
+          title: 'Редактирование',
+          route: 'edit'
+        }];
+      } else {
+        this.links = [{
+          title: 'Вход',
+          route: 'signin'
+        }];
+      }
+    }
   },
   computed: {
     sortedArticles () {
