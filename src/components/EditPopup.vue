@@ -1,5 +1,4 @@
 <template>
-
     <div class="edit_article">
       <form>
         <label class="edit_article__field">
@@ -11,7 +10,7 @@
           <textarea rows="10" placeholder="Текст статьи..." required></textarea>
         </label>
         <div class="actions">
-          <button class="success" type="submit">Сохранить</button>
+          <button class="success" type="button" @click="editing()">Сохранить</button>
           <button class="cancel" type="button">Отмена</button>
         </div>
       </form>
@@ -23,7 +22,15 @@
 
 
 export default {
-  name: 'EditPopup'
+  name: 'EditPopup',
+  props: ['article'],
+  methods: {
+    editing (art) {
+      console.log(111, art)
+      // this.$emit('saveEdit', [this.article, i]);
+      this.$emit('saveEdit', [this.article]);
+    }
+  }
 };
 </script>
 

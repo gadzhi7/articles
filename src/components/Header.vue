@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import router from '../router/index'
 
 export default {
   name: 'Header',
@@ -31,7 +30,7 @@ export default {
     signout() {
       this.auth = false;
       localStorage.setItem('auth', 'false');
-      router.push({ name: 'home' })
+      this.$router.push({ name: 'home' })
     }
   }
 }

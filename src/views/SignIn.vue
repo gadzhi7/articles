@@ -21,7 +21,6 @@
 
 <script>
 import Header from '../components/Header.vue'
-import router from '../router/index'
 
 export default {
   name: 'SignIn',
@@ -34,7 +33,7 @@ export default {
   methods: {
     login () {
       localStorage.setItem('auth', 'true');
-      router.push({ name: 'edit' })
+      this.$router.push({ name: 'edit' });
     }
   }
 }

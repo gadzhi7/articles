@@ -7,7 +7,7 @@
           <p>{{article.description}}</p>
           <h6>{{new Date(article.date_publication).toLocaleString()}}</h6>
           <div class="actions" >
-            <button class="cancel" type="button" @click="editing(index)">Отмена</button>
+            <button class="cancel" type="button" @click="editing(index)">Редактировать</button>
             <button class="delete" type="button" @click="deleteing(index)">Удалить</button>
           </div>
         </div>
@@ -21,7 +21,7 @@
          <DeletePopup />
        </div>
       <div class="popup" v-if="editArticle">
-      <EditPopup />
+      <EditPopup  @saveEdit="save" :article="article"/>
     </div>
     </div>
   </section>
@@ -29,7 +29,6 @@
 
 <script>
 import Header from '../components/Header.vue'
-import router from '../router/index'
 import EditPopup from '../components/EditPopup.vue'
 import DeletePopup from '../components/DeletePopup.vue'
 
@@ -42,6 +41,7 @@ export default {
   },
   data() {
     return {
+      article: null,
       articles: [],
       editArticle: false,
       addArticle: false,
@@ -51,18 +51,24 @@ export default {
   beforeMount () {
     this.articles = JSON.parse(localStorage.getItem('articles'));
     if (!JSON.parse(localStorage.getItem('auth'))) {
-      router.push({ name: 'home' })
+      this.$router.push({ name: 'home' })
     }
   },
   methods: {
     editing (i) {
-
+      console.log(this.articles[i])
+      this.editArticle = true;
+      this.article = this.articles[i];
     },
     deleteing (i) {
-
+      console.log(i)
+      console.log(this.articles[i])
     },
     adding() {
 
+    },
+    save(i) {
+      console.log(i)
     }
   }
 }
@@ -77,6 +83,9 @@ export default {
     align-items: center;
     justify-content: center;
     background-color: rgba(#000, 0.1);
+    z-index: 2;
+    top: 0;
+    left: 0;
 }
 
 .actions_adding {
