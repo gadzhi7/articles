@@ -1,17 +1,12 @@
 <template>
   <div id="app">
-    <transition name="page" mode="out-in">
-      <router-view></router-view>
-    </transition>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-
-
 export default {
   name: 'app',
-
   data () {
     return {
       auth: false,
@@ -42,15 +37,6 @@ export default {
 
 <style lang="scss">
 @import "assets/reset.css";
-
-.page-enter-active, .page-leave-active {
-  transition: opacity 0.3s, transform 0.3s;
-}
-
-.page-enter, .page-leave-to {
-  opacity: 0;
-  transform: translateX(-30%);
-}
 
 .articles_item-wrapper {
   border-bottom: 1px solid #777777;

@@ -26,11 +26,13 @@ export default {
     };
   },
   beforeMount () {
+    // получаем статьи с localStorage
     this.articles = JSON.parse(localStorage.getItem('articles'));
     this.headerLinks();
   },
   methods: {
     headerLinks () {
+      // ссылки страницы в header
       if (JSON.parse(localStorage.getItem('auth'))) {
         this.links = [{
           title: 'Редактирование',

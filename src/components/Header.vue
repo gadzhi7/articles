@@ -1,7 +1,7 @@
 <template lang="html">
   <header class="header">
     <div class="header_inner">
-      <h2>Gkhabada</h2>
+      <h2><a href="http://gkhabada.ru/" target="_blank">Gkhabada</a></h2>
       <div class="header_links">
         <router-link
           :to="{ name: link.route }"
@@ -27,9 +27,11 @@ export default {
     };
   },
   beforeMount () {
+    // проверка на аунтефикацию для отображения кнопки выход
     this.auth = JSON.parse(localStorage.getItem('auth'));
   },
   methods: {
+    // выход из профиля
     signOut () {
       this.auth = false;
       localStorage.setItem('auth', 'false');
@@ -38,7 +40,6 @@ export default {
       } else {
         this.$router.push({ name: 'home' });
       }
-
     }
   }
 };
@@ -79,6 +80,12 @@ export default {
       color: #000;
       background-color: #fff;
     }
+  }
+}
+
+@media (max-width: 500px) {
+  .header h2 {
+    display: none;
   }
 }
 

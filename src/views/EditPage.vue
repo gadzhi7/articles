@@ -26,7 +26,6 @@
         <EditPopup :article="article" @close="close()"/>
       </div>
     </div>
-    {{article}}
   </section>
 </template>
 
@@ -56,26 +55,32 @@ export default {
   },
   beforeMount () {
     this.getArticles();
+
+    // если пользователь не аунтефицирован, то перенаправить на главную страницу
+    if (!JSON.parse(localStorage.getItem('auth'))) {
+      this.$router.push({ name: 'signin' });
+    }
   },
   methods: {
     getArticles () {
+      // получаение статей с localStorage
       this.articles = JSON.parse(localStorage.getItem('articles'));
-      if (!JSON.parse(localStorage.getItem('auth'))) {
-        this.$router.push({ name: 'home' });
-      }
     },
     close () {
+      // закрыть модальные окан
       this.addEditArticle = this.deleteArticle = false;
       this.article = null;
       this.getArticles();
     },
     addingEditing (i) {
+      // открытие модального окна добавление или редактирование статей
       if (i !== undefined) {
         this.article = this.articles[i];
       }
       this.addEditArticle = true;
     },
     deleteing (i) {
+      // открытие модального окна удаления статьи
       this.article = this.articles[i];
       this.deleteArticle = true;
     }
@@ -111,7 +116,7 @@ export default {
   .actions {
     padding: 20px;
     margin: 0 auto;
-    width: 970px;
+    max-width: 970px;
 
     p {
       font-size: 20px;

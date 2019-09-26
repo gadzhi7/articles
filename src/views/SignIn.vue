@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="signin">
-    <Header/>
+    <Header :links="headerLinks"/>
     <div class="sign_in">
       <form @submit.prevent="login">
         <label>
@@ -27,11 +27,22 @@ export default {
   components: { Header },
   data () {
     return {
+      headerLinks: [{
+        title: 'Главная',
+        route: 'home'
+      }],
       auth: false
     };
   },
+  beforeMount () {
+    // проверка на аунтефикацию
+    if (JSON.parse(localStorage.getItem('auth'))) {
+      this.$router.push({ name: 'edit' });
+    }
+  },
   methods: {
     login () {
+      // аунтефикация и перенаправление на станицу редактирование статей
       localStorage.setItem('auth', 'true');
       this.$router.push({ name: 'edit' });
     }
